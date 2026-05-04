@@ -1,15 +1,9 @@
 const express = require("express");
-const cors = require("cors");
+const path = require("path");
 const { usuariosRouter } = require("./routes/usuarios.routes");
 
 function createApp() {
   const app = express();
-
-  app.use(
-    cors({
-      origin: "http://localhost:5173",
-    }),
-  );
 
   app.use(express.json());
 
@@ -21,6 +15,12 @@ function createApp() {
 
   app.use("/usuarios", usuariosRouter);
 
+  app.use(express.static(path.join(__dirname, "../../dist")));
+
+  app.get("*", (req, res) => {
+    res.sendFile(path.join(__dirname, "../../dist/index.html"));
+  });
+  
   app.use((req, res) => {
     res.status(404).json({ error: "Ruta no encontrada" });
   });
