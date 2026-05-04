@@ -22,7 +22,7 @@ function createApp() {
   app.use(express.static(frontendPath));
 
   // SPA (React Router)
-  app.get("*", (req, res) => {
+  app.use((req, res) => {
     res.sendFile(path.join(frontendPath, "index.html"));
   });
 
