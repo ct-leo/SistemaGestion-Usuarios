@@ -1,4 +1,4 @@
-export const API_BASE_URL = '/api/usuarios';
+export const API_BASE_URL = '/api';
 
 export const ROUTES = {
   HOME: '/',
