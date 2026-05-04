@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "build": "cd frontend && npm install && npm run build",
+    "build": "cd ../frontend && npm install && npm run build",
     "start": "node app.js",
     "dev": "nodemon app.js",
     "test": "node -e \"console.log('No hay tests configurados aún')\""
