@@ -1,22 +1,43 @@
-require("dotenv").config();
+const express = require("express");
+const cors = require("cors");
+const { usuariosRouter } = require("./routes/usuarios.routes");
 
-const { createApp } = require("./src/app");
-const { initDb } = require("./src/db");
+function createApp() {
+  const app = express();
 
-const PORT = Number(process.env.PORT) || 3000;
+  app.use(
+    cors({
+      origin: "http://localhost:5173",
+    }),
+  );
 
-async function start() {
-  try {
-    await initDb();
+  app.use(express.json());
 
-    const app = createApp();
-    app.listen(PORT, () => {
-      console.log(`Servidor ejecutándose en http://localhost:${PORT}`);
+  app.get("/", (req, res) => {
+    res.json({
+      mensaje: "API REST de Gestión de Usuarios funcionando correctamente",
     });
-  } catch (error) {
-    console.error("Error al iniciar la aplicación:", error);
-    process.exitCode = 1;
-  }
+  });
+
+  app.use("/usuarios", usuariosRouter);
+
+  app.use((req, res) => {
+    res.status(404).json({ error: "Ruta no encontrada" });
+  });
+
+  app.use((error, req, res, next) => {
+    const statusCode = Number(error?.statusCode) || 500;
+
+    if (statusCode >= 500) {
+      console.error(error);
+    }
+
+    res.status(statusCode).json({
+      error: error?.message || "Error interno del servidor",
+    });
+  });
+
+  return app;
 }
 
-start();
+module.exports = { createApp };
