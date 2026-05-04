@@ -1,4 +1,5 @@
 const express = require("express");
+const path = require("path"); 
 const { usuariosRouter } = require("./routes/usuarios.routes");
 
 function createApp() {
@@ -6,18 +7,26 @@ function createApp() {
 
   app.use(express.json());
 
-  app.get("/", (req, res) => {
+  // RUTAS API
+  app.get("/api", (req, res) => {
     res.json({
       mensaje: "API REST de Gestión de Usuarios funcionando correctamente",
     });
   });
 
-  app.use("/usuarios", usuariosRouter);
+  app.use("/api/usuarios", usuariosRouter);
 
-  app.use((req, res) => {
-    res.status(404).json({ error: "Ruta no encontrada" });
+  // SERVIR FRONTEND (React build)
+  const frontendPath = path.join(process.cwd(), "frontend/dist");
+
+  app.use(express.static(frontendPath));
+
+  // SPA (React Router)
+  app.get("*", (req, res) => {
+    res.sendFile(path.join(frontendPath, "index.html"));
   });
 
+  // MANEJO DE ERRORES
   app.use((error, req, res, next) => {
     const statusCode = Number(error?.statusCode) || 500;
 
