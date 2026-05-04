@@ -1,0 +1,84 @@
+.table-container {
+  overflow-x: auto;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius);
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.table__th {
+  background-color: var(--bg-color);
+  padding: 1rem;
+  font-weight: 600;
+  color: var(--text-color);
+  font-size: 0.875rem;
+  border-bottom: 2px solid var(--border-color);
+}
+
+.table__th--sortable {
+  cursor: pointer;
+  user-select: none;
+}
+
+.table__th--sortable:hover {
+  background-color: #e2e8f0;
+}
+
+.table__th-content {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.table__sort-icon {
+  color: var(--primary-color);
+  font-weight: bold;
+}
+
+.table__td {
+  padding: 1rem;
+  border-bottom: 1px solid var(--border-color);
+  font-size: 0.875rem;
+}
+
+.table__tr:hover {
+  background-color: #f1f5f9;
+}
+
+.table__td--actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.table-loader {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 3rem;
+  gap: 1rem;
+  color: var(--text-light);
+}
+
+.table-loader__spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid var(--border-color);
+  border-top-color: var(--primary-color);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.table-empty {
+  text-align: center;
+  padding: 3rem;
+  color: var(--text-light);
+  font-style: italic;
+}
