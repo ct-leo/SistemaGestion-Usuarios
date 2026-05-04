@@ -17,7 +17,7 @@ function createApp() {
   app.use("/api/usuarios", usuariosRouter);
 
   // SERVIR FRONTEND (React build)
-  const frontendPath = path.join(process.cwd(), "frontend/dist");
+  const frontendPath = path.join(process.cwd(), "../frontend/dist");
 
   app.use(express.static(frontendPath));
 
